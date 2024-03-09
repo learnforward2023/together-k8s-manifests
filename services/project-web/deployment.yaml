@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-web-development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project-web-development
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+     maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: project-web-development
+    spec:
+      containers:
+        - name: app
+          image: learnforward2022/project-web-development:latest
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-web # for production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project-web
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+     maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: project-web
+    spec:
+      containers:
+        - name: app
+          image: learnforward2022/project-web:latest
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
