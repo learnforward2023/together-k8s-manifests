@@ -8,5 +8,6 @@ git pull origin main
 
 # Apply deployment and service
 kubectl apply -f ./services/project-web
+kubectl apply -f ./services/project-server
 
 echo "Deploy process finished"
