@@ -1,43 +1,38 @@
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: mysql-pv-volume
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/home/wltd/k8s-volumes/mysql"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
+apiVersion: v1                                                                                
+kind: PersistentVolume                                                                        
+metadata:                                                                                     
+  name: mysql-pv                                                                              
+spec:                                                                                         
+  capacity:                                                                                   
+    storage: 250Mi     
+  accessModes:                                                                                
+    - ReadWriteOnce                                                                           
+  hostPath:                                                                                   
+    path: "/var/lib/mysql"                                                                    
+---                                                                                           
+apiVersion: v1                                                                                
+kind: PersistentVolumeClaim                                                                   
+metadata:                                                                                     
+  name: mysql-pv-claim                                                                        
+spec:                                                                                         
+  accessModes:                                                                                
+    - ReadWriteOnce                                                                           
+  resources:                                                                                  
+    requests:                                                                                 
+      storage: 250Mi                                                                          
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
 spec:
-  type: NodePort # remove if using ClusterIp
+  type: NodePort
+  selector:
+    app: mysql
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: 32002
-  selector:
-    app: mysql
-  # clusterIp: none # uncomment if using ClusterIp
+      nodePort: 30007
 ---
 apiVersion: v1
 kind: Service
