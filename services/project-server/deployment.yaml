@@ -1,3 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-server-initdb-config
+data:
+  createdb.sql: |
+    CREATE DATABASE project_server_development;
+    CREATE DATABASE project_server;
+    GRANT ALL ON project_server_development.* TO root;
+    GRANT ALL ON project_server.* TO root;
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-server-conf-config
+data:
+  custom.cnf: |
+    [mysqld]
+    character-set-server=utf8
+---
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
@@ -25,7 +45,17 @@ spec:
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
+            - name: mysql-server-initdb
+              mountPath: /docker-entrypoint-initdb.d
+            - name: mysql-server-conf
+              mountPath: /etc/mysql/conf.d
       volumes:
+        - name: mysql-server-initdb
+          configMap:
+            name: mysql-server-initdb-config
+        - name: mysql-server-conf
+          configMap:
+            name: mysql-server-conf-config
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pv-claim
