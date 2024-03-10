@@ -1,0 +1,71 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:8.0
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-server-development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project-server-development
+  template:
+    metadata:
+      labels:
+        app: project-server-development
+    spec:
+      containers:
+        - name: project-server-development
+          image: learnforward2022/project-server-development:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: project-server
+  template:
+    metadata:
+      labels:
+        app: project-server
+    spec:
+      containers:
+        - name: project-server
+          image: learnforward2022/project-server:latest
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,66 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mysql-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/wltd/k8s-volumes/mysql"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  type: NodePort # remove if using ClusterIp
+  ports:
+    - port: 3306
+      targetPort: 3306
+      nodePort: 32002
+  selector:
+    app: mysql
+  # clusterIp: none # uncomment if using ClusterIp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: project-server-loadbalancer # for production
+spec:
+  selector:
+    app: project-server
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: project-server-development-loadbalancer # for development
+spec:
+  selector:
+    app: project-server
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
