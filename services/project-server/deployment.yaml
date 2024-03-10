@@ -25,7 +25,7 @@ spec:
           - name: MYSQL_DATABASE
             valueFrom:
               secretKeyRef:
-                name: mysql-db-url-production
+                name: mysql-db-url
                 key: database
           - name: MYSQL_USER
             valueFrom:
@@ -47,6 +47,56 @@ spec:
         - name: mysql-pv
           persistentVolumeClaim:
             claimName: mysql-pv-claim
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql-development
+spec:
+  selector:
+    matchLabels:
+      app: mysql-development
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql-development
+    spec:
+      containers:
+        - image: mysql:latest
+          name: mysql-development
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-root-pass
+                key: password
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-url-development
+                key: database
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-user-pass
+                key: username
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-user-pass
+                key: password
+          volumeMounts:
+          - name: mysql-pv-development
+            mountPath: /var/lib/mysql-development
+          ports:
+          - containerPort: 3306
+            name: mysql-development
+      volumes:
+        - name: mysql-pv-development
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim-development
 ---
 apiVersion: apps/v1
 kind: Deployment
