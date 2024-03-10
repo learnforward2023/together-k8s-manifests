@@ -134,6 +134,6 @@ spec:
     spec:
       containers:
         - name: project-server
-          image: learnforward2022/project-server:7278aededa6e17fc384212a73fde99822a84c071
+          image: learnforward2022/project-server:642e0480ab3ceffb629582fd24c6a1646f0d87d8
           ports:
             - containerPort: 8080
