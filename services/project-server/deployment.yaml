@@ -25,7 +25,7 @@ spec:
           - name: MYSQL_DATABASE
             valueFrom:
               secretKeyRef:
-                name: mysql-db-url
+                name: mysql-db-url-production
                 key: database
           - name: MYSQL_USER
             valueFrom:
@@ -84,6 +84,6 @@ spec:
     spec:
       containers:
         - name: project-server
-          image: learnforward2022/project-server:latest
+          image: learnforward2022/project-server:7278aededa6e17fc384212a73fde99822a84c071
           ports:
             - containerPort: 8080
