@@ -35,7 +35,7 @@ spec:
             - containerPort: 8080
           command: ["sh", "-c"]
           args:
-            - "yarn migration:development"
+            - "yarn migration:development && yarn dev"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -74,4 +74,4 @@ spec:
             - containerPort: 8080
           command: ["sh", "-c"]
           args:
-            - "yarn migration:production"
+            - "yarn migration:production && yarn start"
