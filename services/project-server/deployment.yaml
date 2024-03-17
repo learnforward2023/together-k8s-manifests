@@ -53,7 +53,7 @@ spec:
     spec:
       containers:
         - name: project-server
-          image: learnforward2022/project-server:a9a02b2ce84db7243065b2fd0ff91b7a34283911
+          image: learnforward2022/project-server:370c6777a6908d488fb7a82bee19e313be04fbf4
           env:
           - name: DB_USER
             valueFrom:
