@@ -31,6 +31,21 @@ spec:
               secretKeyRef:
                 name: db-host
                 key: db_host
+          - name: GITHUB_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: GITHUB_CLIENT_ID
+          - name: GITHUB_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: GITHUB_CLIENT_SECRET
+          - name: SECRET_JWT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: SECRET_JWT_KEY
           ports:
             - containerPort: 8080
           command: ["sh", "-c"]
@@ -70,6 +85,21 @@ spec:
               secretKeyRef:
                 name: db-host
                 key: db_host
+          - name: GITHUB_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: GITHUB_CLIENT_ID
+          - name: GITHUB_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: GITHUB_CLIENT_SECRET
+          - name: SECRET_JWT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: SECRET_JWT_KEY
           ports:
             - containerPort: 8080
           command: ["sh", "-c"]
