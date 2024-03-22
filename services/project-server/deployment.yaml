@@ -46,6 +46,36 @@ spec:
               secretKeyRef:
                 name: together-development-secrets
                 key: SECRET_JWT_KEY
+          - name: GOOGLE_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: GOOGLE_CLIENT_ID
+          - name: GOOGLE_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: GOOGLE_CLIENT_SECRET
+          - name: GOOGLE_REDIRECT_URI
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: GOOGLE_REDIRECT_URI
+          - name: FACEBOOK_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: FACEBOOK_CLIENT_ID
+          - name: FACEBOOK_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: FACEBOOK_CLIENT_SECRET
+          - name: FACEBOOK_REDIRECT_URI
+            valueFrom:
+              secretKeyRef:
+                name: together-development-secrets
+                key: FACEBOOK_REDIRECT_URI
           ports:
             - containerPort: 8080
           command: ["sh", "-c"]
@@ -100,6 +130,36 @@ spec:
               secretKeyRef:
                 name: together-secrets
                 key: SECRET_JWT_KEY
+          - name: GOOGLE_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: GOOGLE_CLIENT_ID
+          - name: GOOGLE_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: GOOGLE_CLIENT_SECRET
+          - name: GOOGLE_REDIRECT_URI
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: GOOGLE_REDIRECT_URI
+          - name: FACEBOOK_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: FACEBOOK_CLIENT_ID
+          - name: FACEBOOK_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: FACEBOOK_CLIENT_SECRET
+          - name: FACEBOOK_REDIRECT_URI
+            valueFrom:
+              secretKeyRef:
+                name: together-secrets
+                key: FACEBOOK_REDIRECT_URI
           ports:
             - containerPort: 8080
           command: ["sh", "-c"]
