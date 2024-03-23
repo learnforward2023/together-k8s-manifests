@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: learnforward2022/project-web-development:1cb99e1104b3e20a108def3f3ccdb28c7147b067
+          image: learnforward2022/project-web-development:48f6b0d58727535a6015bc89fbe786148d3e1051
           ports:
             - containerPort: 3000
           imagePullPolicy: Always
