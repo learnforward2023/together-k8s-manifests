@@ -17,7 +17,7 @@ metadata:
   name: project-server-development-loadbalancer # for development
 spec:
   selector:
-    app: project-server
+    app: project-server-development
   type: LoadBalancer
   ports:
   - protocol: TCP
